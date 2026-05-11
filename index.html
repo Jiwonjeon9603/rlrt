@@ -19,8 +19,7 @@
   <meta property="og:description" content="RLRT augments GRPO by reversing self-distillation on correct rollouts: it amplifies tokens where the student diverged from the teacher yet still succeeded, treating these as self-driven reasoning.">
   <!-- TODO: 실제 프로젝트 페이지 URL로 교체 -->
   <meta property="og:url" content="https://jiwonjeon9603.github.io/rlrt">
-  <!-- TODO: 1200x630px 소셜 프리뷰 이미지 만들고 경로 교체 -->
-  <meta property="og:image" content="https://github.com/Jiwonjeon9603/rlrt/blob/master/static/images/rlrt_concept.png">
+  <meta property="og:image" content="https://jiwonjeon9603.github.io/rlrt/static/images/og_preview.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="RLRT — Rebellious Student: Reversing Teacher Signals for Reasoning Exploration">
@@ -39,7 +38,7 @@
   <meta name="twitter:creator" content="@YOUR_AUTHOR_HANDLE">
   <meta name="twitter:title" content="Rebellious Student: Reversing Teacher Signals for Reasoning Exploration with Self-Distilled RLVR">
   <meta name="twitter:description" content="RLRT augments GRPO by reversing self-distillation on correct rollouts: it amplifies tokens where the student diverged from the teacher yet still succeeded.">
-  <meta name="twitter:image" content="https://YOUR_DOMAIN.com/static/images/social_preview.png">
+  <meta name="twitter:image" content="https://jiwonjeon9603.github.io/rlrt/static/images/og_preview.png">
   <meta name="twitter:image:alt" content="RLRT — Rebellious Student">
 
   <!-- Academic/Research Specific -->
@@ -137,7 +136,7 @@
       "name": "arXiv"
     },
     "url": "https://jiwonjeon9603.github.io/rlrt",
-    "image": ""https://github.com/Jiwonjeon9603/rlrt/blob/master/static/images/rlrt_concept.png"",
+    "image": "https://github.com/Jiwonjeon9603/rlrt/blob/master/static/images/rlrt_concept.png",
     "keywords": ["RLVR", "self-distillation", "LLM reasoning", "exploration", "GRPO", "mathematical reasoning", "information asymmetry"],
     "abstract": "Self-distillation has emerged as a powerful framework for post-training LLMs, where a teacher conditioned on extra information guides a student without it, both from the same model. While this guidance is useful when the student has failed, on successful rollouts, the same mechanism instead overwrites the student's choices and suppresses its own reasoning. Therefore, we propose reading the original self-distillation signal in reverse: when the student succeeds along a path the teacher would not have predicted, these tokens reflect its self-driven reasoning. Building on this, we propose RLRT (RLVR with Reversed Teacher), which augments GRPO by reinforcing these tokens on correct rollouts. We interpret this as a new form of exploration in RLVR: not uniform diversity, but valuable exploration grounded in the student's own success. Across base, instruction-tuned, and thinking-tuned Qwen3 checkpoints, RLRT substantially outperforms self-distillation and exploration-based baselines, establishing information asymmetry as a new, principled design axis for RLVR.",
     "isAccessibleForFree": true,
