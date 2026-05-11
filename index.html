@@ -138,14 +138,14 @@
       "name": "arXiv"
     },
     "url": "https://jiwonjeon9603.github.io/rlrt",
-    "image": "https://github.com/Jiwonjeon9603/rlrt/blob/master/static/images/rlrt_concept.png",
+    "image": "https://jiwonjeon9603.github.io/rlrt/static/images/og_preview.png",
     "keywords": ["RLVR", "self-distillation", "LLM reasoning", "exploration", "GRPO", "mathematical reasoning", "information asymmetry"],
     "abstract": "Self-distillation has emerged as a powerful framework for post-training LLMs, where a teacher conditioned on extra information guides a student without it, both from the same model. While this guidance is useful when the student has failed, on successful rollouts, the same mechanism instead overwrites the student's choices and suppresses its own reasoning. Therefore, we propose reading the original self-distillation signal in reverse: when the student succeeds along a path the teacher would not have predicted, these tokens reflect its self-driven reasoning. Building on this, we propose RLRT (RLVR with Reversed Teacher), which augments GRPO by reinforcing these tokens on correct rollouts. We interpret this as a new form of exploration in RLVR: not uniform diversity, but valuable exploration grounded in the student's own success. Across base, instruction-tuned, and thinking-tuned Qwen3 checkpoints, RLRT substantially outperforms self-distillation and exploration-based baselines, establishing information asymmetry as a new, principled design axis for RLVR.",
     "isAccessibleForFree": true,
     "license": "https://creativecommons.org/licenses/by/4.0/",
     "mainEntity": {
       "@type": "WebPage",
-      "@id": "https://YOUR_DOMAIN.com/rlrt"
+      "@id": "https://jiwonjeon9603.github.io/rlrt"
     },
     "about": [
       { "@type": "Thing", "name": "Reinforcement Learning with Verifiable Rewards" },
@@ -162,7 +162,6 @@
     "@type": "Organization",
     "name": "Microsoft Research",
     "url": "https://www.microsoft.com/en-us/research/",
-    "logo": "https://YOUR_DOMAIN.com/static/images/favicon.ico",
     "sameAs": [
       "https://twitter.com/MSFTResearch"
     ]
@@ -302,7 +301,7 @@
       <div class="hero-body">
         <!-- TODO: Figure 1 (training curve + benchmark bar) 이미지를 static/images/teaser.png 등으로 저장 후 경로 업데이트.
                    video 대신 img 태그 사용 권장 -->
-        <img src="static/images/teaser.png" alt="RLRT teaser: reversing the teacher signal turns self-distillation into valuable exploration" style="width: 100%;">
+        <img src="static/images/score_summarized.png" alt="RLRT teaser: reversing the teacher signal turns self-distillation into valuable exploration" style="width: 100%;">
         <h2 class="subtitle has-text-centered">
           <strong>Reversing the teacher signal turns self-distillation into valuable exploration.</strong>
           On correct rollouts, RLRT amplifies tokens where the student diverged from the teacher and still succeeded — strengthening self-driven reasoning rather than forcing imitation. Across Qwen3-4B/8B-Base, Qwen3-4B-Instruct, and Qwen3-8B, RLRT consistently outperforms self-distillation and exploration baselines.
@@ -341,31 +340,31 @@
                carousel4.jpg → Figure 6 (Reflection injection flip rates)
                carousel5.jpg → Figure 8 (pass@k comparison) -->
           <div class="item">
-            <img src="static/images/carousel1.jpg" alt="Critical positions and explore/exploit directions on a reasoning trajectory" loading="lazy"/>
+            <img src="static/images/critical_direction.png" alt="Critical positions and explore/exploit directions on a reasoning trajectory" loading="lazy"/>
             <h2 class="subtitle has-text-centered">
               <strong>Critical positions and explore/exploit directions.</strong> Token shading shows position-level asymmetry; at each critical position, candidates split into explore (green, student-favored) and exploit (pink, teacher-favored).
             </h2>
           </div>
           <div class="item">
-            <img src="static/images/carousel2.jpg" alt="Reasoning markers in the explore/exploit population" loading="lazy"/>
+            <img src="static/images/explore_exploit_tokens.png" alt="Reasoning markers in the explore/exploit population" loading="lazy"/>
             <h2 class="subtitle has-text-centered">
               <strong>Reasoning markers separate cleanly.</strong> Explore-leaning tokens open new reasoning paths (<em>wait, another, consider</em>); exploit-leaning ones close them with verdicts (<em>conclude, correct, final</em>).
             </h2>
           </div>
           <div class="item">
-            <img src="static/images/carousel3.jpg" alt="RLRT training pipeline overview" loading="lazy"/>
+            <img src="static/images/RLRT.png" alt="RLRT training pipeline overview" loading="lazy"/>
             <h2 class="subtitle has-text-centered">
               <strong>RLRT pipeline.</strong> The reversed teacher provides token-level signals that, on correct rollouts, up-weight tokens with high asymmetry — amplifying self-driven choices.
             </h2>
           </div>
           <div class="item">
-            <img src="static/images/carousel4.jpg" alt="Reflection injection causal intervention" loading="lazy"/>
+            <img src="static/images/flipR.png" alt="Reflection injection causal intervention" loading="lazy"/>
             <h2 class="subtitle has-text-centered">
               <strong>Causal evidence.</strong> Injecting "Wait, let me reconsider" at high-asymmetry positions flips wrong → right twice as often as at random positions — and RLRT amplifies this effect from 18% to over 40%.
             </h2>
           </div>
           <div class="item">
-            <img src="static/images/carousel5.jpg" alt="pass@k comparison with exploration methods" loading="lazy"/>
+            <img src="static/images/pass_at_k.png" alt="pass@k comparison with exploration methods" loading="lazy"/>
             <h2 class="subtitle has-text-centered">
               <strong>Genuinely broader coverage.</strong> RLRT dominates from pass@1 to pass@256 on AIME24/26, outperforming both entropy-bonus and sequence-level diversity baselines.
             </h2>
