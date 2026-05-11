@@ -92,7 +92,12 @@
   </noscript>
   
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
+
+  <!-- KaTeX for math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}],throwOnError:false});"></script>
+
   <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
   <script defer src="static/js/fontawesome.all.min.js"></script>
@@ -301,9 +306,9 @@
       <div class="hero-body">
         <!-- TODO: Figure 1 (training curve + benchmark bar) 이미지를 static/images/teaser.png 등으로 저장 후 경로 업데이트.
                    video 대신 img 태그 사용 권장 -->
-        <img src="static/images/score_summarized.png" alt="RLRT teaser: reversing the teacher signal turns self-distillation into valuable exploration" style="width: 100%;">
+        <img src="static/images/og_preview.png" alt="RLRT teaser: reversing the teacher signal turns self-distillation into valuable exploration" style="width: 100%;">
         <h2 class="subtitle has-text-centered">
-          <strong>Reversing the teacher signal turns self-distillation into valuable exploration.</strong>
+          <strong>Reversing the teacher signal turns self-distillation into valuable exploration.</strong><br>
           On correct rollouts, RLRT amplifies tokens where the student diverged from the teacher and still succeeded, strengthening self-driven reasoning rather than forcing imitation toward the teacher. Across diverse models in the Qwen3 family, RLRT consistently outperforms self-distillation and exploration baselines.
         </h2>
       </div>
@@ -320,6 +325,100 @@
           <div class="content has-text-justified">
             <p>
               Self-distillation has emerged as a powerful framework for post-training LLMs, where a teacher conditioned on extra information guides a student without it, both from the same model. While this guidance is useful when the student has failed, on successful rollouts, the same mechanism instead overwrites the student's choices and suppresses its own reasoning. Therefore, we propose reading the original self-distillation signal <em>in reverse</em>: when the student succeeds along a path the teacher would not have predicted, these tokens reflect its <em>self-driven reasoning</em>. Building on this, we propose <strong>RLRT (RLVR with Reversed Teacher)</strong>, which augments GRPO by reinforcing these tokens on correct rollouts. We interpret this as a new form of exploration in RLVR: not uniform diversity, but <em>valuable exploration</em> grounded in the student's own success. Across base, instruction-tuned, and thinking-tuned Qwen3 checkpoints, RLRT substantially outperforms self-distillation and exploration-based baselines, establishing information asymmetry as a new, principled design axis for RLVR.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Introduction -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Introduction</h2>
+          <div class="content has-text-justified">
+            <p>
+              Reinforcement learning with verifiable rewards (RLVR) has become the dominant paradigm for post-training LLMs on reasoning tasks, yet it suffers from a credit-assignment bottleneck: the only learning signal is a sparse scalar reward at the end of each trajectory. Self-distillation has recently emerged as a powerful response. Its core mechanism is an <em>information asymmetry</em> between two views of the same model: a teacher view conditioned on additional information (rich textual feedback, or a successful peer rollout) and a student view without it. By distilling the teacher into the student, this asymmetry converts the sparse scalar reward into dense token-level supervision.
+            </p>
+            <p>
+              However, the value of distillation depends on whether the rollout was already correct. On failed trajectories, the teacher points the student toward solutions it could not previously reach. On already-correct trajectories, the same mechanism inverts its role: distilling toward the teacher overwrites the student's choices with the teacher's, forcing it to imitate a path it had already solved its own way and undermining the independent reasoning that produced the success.
+            </p>
+            <p>
+              This motivates us to <em>reverse the direction</em> of self-distillation on correct rollouts. The tokens where the student's choice differs most sharply from the teacher's prediction are not arbitrary disagreements: they are the very points where the student exercised its own reasoning, choosing against the teacher and still arriving at the correct answer. Rather than suppressing these <em>self-driven</em> tokens by aligning the student to the teacher, we propose to amplify them. Self-distillation thus becomes a tool for strengthening the student's reasoning ability rather than reducing it to imitation.
+            </p>
+            <p>
+              Building on this, we propose <strong>RLRT (RLVR with Reversed Teacher)</strong>, which augments GRPO by amplifying self-driven tokens on correct rollouts. We further interpret this as a new form of exploration in RLVR: not uniform diversity, but <em>valuable exploration</em> grounded in the student's own success. Across diverse models in the Qwen3 family, RLRT outperforms self-distillation baselines by an average of <strong>8.9%</strong> on six math reasoning benchmarks, including the challenging AIME and HMMT.
+            </p>
+            <img src="static/images/score_summarized.png" alt="Training reward and benchmark scores across Qwen3 models" style="display: block; width: 100%; margin: 1.5rem 0 0 0;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Motivation -->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Motivation</h2>
+          <div class="content has-text-justified">
+            <p>
+              The teacher–student setup gives us a natural lens for identifying <em>self-driven reasoning</em>. On correct rollouts, the tokens at which the student departs from the teacher are not merely mistakes to be suppressed, but signs of self-driven reasoning — tokens at which the student deviates from the teacher's predictive distribution in ways influential to reaching the correct answer.
+            </p>
+            <p>
+              To make this precise, we define two quantities. The <em>token-level information asymmetry</em> at a sampled token \(y_t\) is \(\hat{D}_t(y_t) = \log \frac{P_S(y_t)}{P_T(y_t)}\), and the <em>position-level asymmetry</em> is its student-expectation, \(\bar{D}_t = \mathrm{KL}(P_S \,\|\, P_T)\). These play distinct roles: \(\bar{D}_t\) flags which positions matter, while the sign of \(\hat{D}_t\) marks which direction the policy should update.
+            </p>
+            <p>
+              <strong>\(\bar{D}_t\) identifies critical positions.</strong> We justify this through a Bayesian view of the teacher: modeling the teacher as the student conditioned on success (\(R=1\)), Bayes' rule gives \(\hat{D}_t(v) = \log \bar{f}_S - \log f(v)\), where \(f(v)\) is the probability of a correct outcome after choosing token \(v\). Defining the influence of position \(t\) as \(\mathrm{Inf}_S(t) = \mathbb{E}_v\,|f(v) - \bar{f}_S|\), we derive a Pinsker-type bound: \(\mathrm{Inf}_S(t)^2 \le 2\,\bar{D}_t\). By contrapositive, \(\bar{D}_t \approx 0\) implies an inert position, so any position where the choice of token meaningfully affects correctness must carry high \(\bar{D}_t\).
+            </p>
+            <img src="static/images/critical_direction.png" alt="Critical positions on a reasoning trajectory" style="display: block; width: 100%; margin: 1.5rem 0;">
+            <p>
+              <strong>The sign of \(\hat{D}_t\) identifies the direction.</strong> At critical positions, candidates the teacher would have predicted (\(\hat{D}_t < 0\), e.g., "use", "conclude") define the <em>exploit direction</em> — following the teacher's path. Candidates the student chose against the teacher (\(\hat{D}_t > 0\), e.g., "try", "consider") define the <em>explore direction</em> — a self-driven path consistent with success. RLRT amplifies the latter.
+            </p>
+            <img src="static/images/explore_exploit_tokens.png" alt="Volcano plot of explore vs exploit reasoning markers" style="display: block; width: 100%; margin: 1.5rem 0 0 0;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Method -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Method</h2>
+          <div class="content has-text-justified">
+            <p>
+              We present <strong>RLRT (RLVR with Reversed Teacher)</strong>, an instance of the framework above that uses an informed teacher and amplifies, on correct rollouts, tokens with \(\hat{D}_t > 0\). RLRT modifies only the token-level credit assignment of standard GRPO, leaving the rollout, reward, and trust-region mechanisms unchanged.
+            </p>
+            <img src="static/images/RLRT.png" alt="RLRT training pipeline overview" style="display: block; width: 100%; margin: 1.5rem 0;">
+            <p>
+              <strong>Reverse weight.</strong> For a prompt \(x\), the student policy \(\pi_\theta\) samples \(K\) rollouts, each receiving a verifiable reward \(r \in \{0, 1\}\) and a group-standardized advantage \(A\). RLRT defines a per-token reweighting based on \(\hat{D}_t\):
+            </p>
+            \[
+              w_t^{\mathrm{RLRT}} = \exp\!\bigl(\mathrm{sign}(A)\cdot\hat{D}_t\bigr) = \left(\frac{P_S(y_t)}{P_T(y_t)}\right)^{\mathrm{sign}(A)}.
+            \]
+            <p>
+              On positive-advantage tokens, \(w_t^{\mathrm{RLRT}} > 1\) exactly when \(\hat{D}_t > 0\) — i.e., for tokens the student chose against the teacher's prediction — and the reweighting amplifies these <em>self-driven</em> choices rather than aligning the student to the teacher. The flipped teacher/student ratio relative to RLSD reflects a difference in intent: RLSD treats teacher–student disagreement as a correction to be applied, whereas RLRT treats it as a signal of <em>valuable exploration</em> and amplifies it.
+            </p>
+            <p>
+              <strong>Reward-gated update.</strong> The reverse weight is applied only to correct rollouts:
+            </p>
+            \[
+              A_t^{\mathrm{RLRT}} = \begin{cases}
+                A \cdot \bigl[(1-\lambda) + \lambda\cdot\mathrm{clip}(w_t^{\mathrm{RLRT}},\, 1-\varepsilon_w,\, 1+\varepsilon_w)\bigr] & \text{if } r = 1, \\
+                A & \text{if } r = 0,
+              \end{cases}
+            \]
+            <p>
+              where \(\lambda \in [0, 1]\) controls the strength of the reversed signal (\(\lambda = 0\) recovers vanilla GRPO, \(\lambda = 1\) yields full reverse weighting), and the clip \(\varepsilon_w\) bounds the per-token advantage perturbation by \(\lambda\cdot\varepsilon_w\).
             </p>
           </div>
         </div>
