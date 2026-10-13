@@ -316,17 +316,17 @@
       <h2 class="title is-3 has-text-centered">Reversing the Teacher Signal</h2>
       <div class="content has-text-justified">
         <p>
-          In self-distillation, a teacher (the same model, shown a correct solution) guides a student that sees only the problem. When the student has already solved the problem, pulling it toward the teacher just overwrites its own reasoning. We read the signal in reverse and look at <strong>self-driven tokens</strong>: tokens the student favors but the teacher disfavors.
+          Self-distillation trains a model (the <em>student</em>) to imitate a copy of itself that has already seen the answer (the <em>teacher</em>). A teacher that knows the answer has no reason to hesitate, so the student learns to drop words like <em>wait</em> and <em>maybe</em> and stops exploring. We flip the signal: on correct answers, we reward <strong>self-driven tokens</strong>, the choices the student made against the teacher's prediction that still led to the right answer.
         </p>
       </div>
       <div class="columns is-vcentered">
         <div class="column">
           <img src="static/images/self_driven_curve.jpg" alt="Training score when upweighting teacher-predicted vs. self-driven tokens" style="width: 100%;">
-          <p class="has-text-centered">Upweighting <strong style="color:#1e8a5f">self-driven tokens</strong> during GRPO significantly improves training efficiency.</p>
+          <p class="has-text-centered">Rewarding <strong style="color:#1e8a5f">self-driven tokens</strong> makes GRPO learn faster; rewarding <strong style="color:#c2185b">teacher-predicted tokens</strong> makes it worse.</p>
         </div>
         <div class="column">
           <img src="static/images/explore_exploit_tokens.png" alt="Explore-leaning vs. exploit-leaning reasoning markers" style="width: 100%;">
-          <p class="has-text-centered"><strong style="color:#1e8a5f">Self-driven tokens open new paths</strong> (<em>wait, another, consider</em>); <strong style="color:#c2185b">teacher-predicted tokens close them</strong> (<em>conclude, correct, final</em>).</p>
+          <p class="has-text-centered"><strong style="color:#1e8a5f">Self-driven tokens open new paths</strong> (<em>wait, maybe, another</em>); <strong style="color:#c2185b">teacher-predicted tokens close them</strong> and follow the teacher's route (<em>conclude, final, yield</em>).</p>
         </div>
       </div>
     </div>
