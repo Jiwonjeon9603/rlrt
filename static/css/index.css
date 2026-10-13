@@ -796,9 +796,12 @@ p.has-text-centered,
 .fig-captions { align-items: flex-start; margin-top: 0.75rem; font-size: 0.9rem; }
 .fig-subcaptions { gap: 1rem; align-items: flex-start; }
 .fig-subcaptions > p { flex: 1 1 0; }
+/* (a)/(b) stretched vertically to roughly match pass@k height */
+.fig-stretch { aspect-ratio: 3.4 / 1; object-fit: fill; }
 
 @media screen and (max-width: 768px) {
   .fig-row { flex-direction: column; align-items: stretch; }
   .fig-row > * { flex: none !important; }
+  .fig-stretch { aspect-ratio: auto; }
   .fig-78, .fig-75, .fig-65, .fig-58 { width: 100%; }
 }
