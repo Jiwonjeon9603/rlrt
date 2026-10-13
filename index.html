@@ -50,7 +50,7 @@
   <meta name="citation_publication_date" content="2026">
   <meta name="citation_conference_title" content="Advances in Neural Information Processing Systems (NeurIPS 2026)">
   <!-- TODO: arXiv 또는 호스팅 PDF URL 지원 나중 확인 -->
-  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/YOUR_ARXIV_ID.pdf">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2605.10781">
   
   <!-- Additional SEO -->
   <meta name="theme-color" content="#2563eb">
@@ -254,9 +254,8 @@
 
             <div class="column has-text-centered">
               <div class="publication-links">
-                <!-- TODO: arXiv ID 확정되면 업데이트 -->
                 <span class="link-block">
-                  <a href="https://arxiv.org/pdf/YOUR_ARXIV_ID.pdf" target="_blank"
+                  <a href="https://arxiv.org/pdf/2605.10781" target="_blank"
                   class="external-link button is-normal is-rounded is-dark">
                   <span class="icon"><i class="fas fa-file-pdf"></i></span>
                   <span>Paper</span>
@@ -281,9 +280,8 @@
                   </a>
                 </span>
 
-                <!-- TODO: arXiv ID 확정되면 업데이트 -->
                 <span class="link-block">
-                  <a href="https://arxiv.org/abs/YOUR_ARXIV_ID" target="_blank"
+                  <a href="https://arxiv.org/abs/2605.10781" target="_blank"
                   class="external-link button is-normal is-rounded is-dark">
                   <span class="icon"><i class="ai ai-arxiv"></i></span>
                   <span>arXiv</span>
@@ -302,44 +300,33 @@
   <section class="hero teaser">
     <div class="container is-max-desktop">
       <div class="hero-body">
-        <img src="static/images/rlrt_concept.png" alt="Teacher says stop exploring; the student explores other methods and succeeds" style="width: 100%;">
-        <h2 class="subtitle has-text-centered">
-          <strong>TL;DR:</strong> On correct rollouts, don't pull the student toward the teacher. Amplify the tokens where it <em>disagreed</em> with the teacher and still got the right answer.
-        </h2>
+        <div class="content has-text-centered" style="border: 3px solid #1e6b52; border-radius: 14px; padding: 1.25rem 1.5rem; margin-bottom: 2rem;">
+          <p class="is-size-4 has-text-weight-bold" style="color:#1e6b52; margin-bottom: 0.5rem;">RLRT is an LLM post-training method that teaches models how to think independently.</p>
+          <p class="is-size-5">Encouraging the model <strong>to think differently from the teacher's guidance</strong> while still getting the right answer leads to better reasoning.</p>
+        </div>
+        <img src="static/images/rlrt_concept.png" alt="The teacher tells the student to stop exploring; the student tries other methods and succeeds" style="width: 100%;">
       </div>
     </div>
   </section>
 
 
-  <!-- Abstract -->
+  <!-- Reversing the teacher signal -->
   <section class="section hero is-light">
     <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3">Abstract</h2>
-          <div class="content has-text-justified">
-            <p>
-              Self-distillation has emerged as a powerful framework for post-training LLMs, where a teacher conditioned on extra information guides a student without it, both from the same model. While this guidance is useful when the student has failed, on successful rollouts, the same mechanism instead overwrites the student's choices and suppresses its own reasoning. Therefore, we propose reading the original self-distillation signal <em>in reverse</em>: when the student succeeds along a path the teacher would not have predicted, these tokens reflect its <em>self-driven reasoning</em>. Building on this, we propose <strong>RLRT (RLVR with Reversed Teacher)</strong>, which augments GRPO by reinforcing these tokens on correct rollouts. We interpret this as a new form of exploration in RLVR: not uniform diversity, but <em>valuable exploration</em> grounded in the student's own success. Across base, instruction-tuned, and thinking-tuned Qwen3 checkpoints, RLRT substantially outperforms self-distillation and exploration-based baselines, establishing information asymmetry as a new, principled design axis for RLVR.
-            </p>
-          </div>
-        </div>
+      <h2 class="title is-3 has-text-centered">Reversing the Teacher Signal</h2>
+      <div class="content has-text-justified">
+        <p>
+          In self-distillation, a teacher (the same model, shown a correct solution) guides a student that sees only the problem. When the student has already solved the problem, pulling it toward the teacher just overwrites its own reasoning. We read the signal in reverse and look at <strong>self-driven tokens</strong>: tokens the student favors but the teacher disfavors.
+        </p>
       </div>
-    </div>
-  </section>
-
-
-  <!-- Key idea -->
-  <section class="section">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3">Key Idea</h2>
-          <div class="content has-text-justified">
-            <p>
-              We compare the student \(P_S\) with a teacher \(P_T\), the same model conditioned on a correct solution. Their gap \(\hat{D}_t = \log \frac{P_S(y_t)}{P_T(y_t)}\) tells us two things: its magnitude marks <strong>critical positions</strong> where the token choice decides the outcome, and its sign gives the <strong>direction</strong>. Tokens the teacher would pick (\(\hat{D}_t &lt; 0\), e.g., <em>use, conclude</em>) <span style="color:#c2185b">exploit</span>. Tokens the student picked against the teacher (\(\hat{D}_t &gt; 0\), e.g., <em>try, consider</em>) <span style="color:#2e7d32">explore</span>.
-            </p>
-            <img src="static/images/critical_direction.png" alt="Critical positions and explore/exploit directions on a reasoning trajectory" style="display: block; width: 100%; margin: 1.5rem 0 0 0;">
-          </div>
+      <div class="columns is-vcentered">
+        <div class="column">
+          <img src="static/images/self_driven_curve.jpg" alt="Training score when upweighting teacher-predicted vs. self-driven tokens" style="width: 100%;">
+          <p class="has-text-centered">Upweighting <strong style="color:#1e8a5f">self-driven tokens</strong> during GRPO significantly improves training efficiency.</p>
+        </div>
+        <div class="column">
+          <img src="static/images/explore_exploit_tokens.png" alt="Explore-leaning vs. exploit-leaning reasoning markers" style="width: 100%;">
+          <p class="has-text-centered"><strong style="color:#1e8a5f">Self-driven tokens open new paths</strong> (<em>wait, another, consider</em>); <strong style="color:#c2185b">teacher-predicted tokens close them</strong> (<em>conclude, correct, final</em>).</p>
         </div>
       </div>
     </div>
@@ -347,67 +334,62 @@
 
 
   <!-- Method -->
-  <section class="section hero is-light">
+  <section class="section">
     <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3">Method</h2>
-          <div class="content has-text-justified">
-            <p>
-              <strong>RLRT</strong> changes only GRPO's token-level credit. On correct rollouts, each token's advantage is reweighted by the reversed teacher ratio, so self-driven tokens (\(\hat{D}_t &gt; 0\)) are amplified. Incorrect rollouts keep the plain GRPO advantage.
-            </p>
-            \[
-              w_t^{\mathrm{RLRT}} = \frac{P_S(y_t)}{P_T(y_t)} \quad \text{(applied only when } r = 1\text{, clipped to } [1-\varepsilon_w,\, 1+\varepsilon_w])
-            \]
-            <img src="static/images/RLRT.png" alt="RLRT training pipeline overview" style="display: block; width: 100%; margin: 1.5rem 0 0 0;">
-          </div>
-        </div>
+      <h2 class="title is-3 has-text-centered">RLRT: RLVR with Reversed Teacher</h2>
+      <img src="static/images/RLRT.png" alt="RLRT training pipeline" style="display: block; width: 100%; margin-bottom: 1.5rem;">
+      <div class="content has-text-justified">
+        <p>
+          RLRT changes only how GRPO assigns credit to tokens. The teacher sees a successful rollout; the student does not. Each token gets a reverse weight \(w_t = P_S(y_t) / P_T(y_t)\) on correct rollouts, where \(P_S\) and \(P_T\) are the student and teacher token probabilities.
+        </p>
+        \[
+          A_t^{\mathrm{RLRT}} = \begin{cases}
+            A \cdot \bigl[(1-\lambda) + \lambda\cdot\mathrm{clip}(w_t,\, 1-\varepsilon_w,\, 1+\varepsilon_w)\bigr] & \text{if } r = 1, \\
+            A & \text{if } r = 0
+          \end{cases}
+        \]
+        <p class="has-text-centered"><small>\(A\): GRPO advantage; \(r\): correctness; \(\lambda\) sets the weighting strength (\(\lambda = 0\) is GRPO); \(\varepsilon_w\) bounds the clipped weight.</small></p>
+        <p class="has-text-centered" style="color:#1e6b52; font-weight: 600;">
+          Correct rollouts: amplify self-driven tokens (\(P_S &gt; P_T\)). Incorrect rollouts: keep GRPO.
+        </p>
       </div>
     </div>
   </section>
 
 
   <!-- Results -->
-  <section class="section">
+  <section class="section hero is-light">
     <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3">Results</h2>
-          <div class="content has-text-justified">
-            <p>
-              Across four Qwen3 backbones, RLRT trains faster and beats GRPO, self-distillation, and exploration baselines on six math benchmarks (AIME24/25/26, HMMT26, AMC23, MATH500), outperforming self-distillation baselines by <strong>8.9%</strong> on average.
-            </p>
-            <img src="static/images/score_summarized.png" alt="Training reward and benchmark scores across Qwen3 models" style="display: block; width: 100%; margin: 1.5rem 0 0 0;">
-          </div>
-        </div>
+      <h2 class="title is-3 has-text-centered">Training and Benchmark Performance</h2>
+      <div class="content has-text-justified">
+        <p>
+          We train on DAPO-Math-17k with four Qwen3 backbones and evaluate on six math benchmarks (AIME24/25/26, HMMT26, AMC23, MATH500). RLRT trains faster and outperforms GRPO and self-distillation baselines on all four backbones, by <strong>up to 18%</strong>.
+        </p>
       </div>
+      <img src="static/images/training_curves.jpg" alt="Training score curves on four Qwen3 backbones" style="display: block; width: 100%; margin-bottom: 1.5rem;">
+      <img src="static/images/benchmark_bars.jpg" alt="Mean avg@16 across six math benchmarks" style="display: block; width: 100%;">
     </div>
   </section>
 
-  <section class="hero is-small">
-    <div class="hero-body">
-      <div class="container">
-        <div id="results-carousel" class="carousel results-carousel">
-          <div class="item">
-            <img src="static/images/explore_exploit_tokens.png" alt="Reasoning markers in the explore/exploit population" loading="lazy"/>
-            <h2 class="subtitle has-text-centered">
-              <strong>Explore vs. exploit tokens.</strong> Explore-leaning tokens open new paths (<em>wait, another, consider</em>); exploit-leaning ones close them (<em>conclude, correct, final</em>).
-            </h2>
-          </div>
-          <div class="item">
-            <img src="static/images/flipR.png" alt="Reflection injection causal intervention" loading="lazy"/>
-            <h2 class="subtitle has-text-centered">
-              <strong>Causal evidence.</strong> "Wait, let me reconsider" at high-asymmetry positions flips wrong → right twice as often as random positions. RLRT raises this from ~18% to over 40%.
-            </h2>
-          </div>
-          <div class="item">
-            <img src="static/images/pass_at_k.png" alt="pass@k comparison with exploration methods" loading="lazy"/>
-            <h2 class="subtitle has-text-centered">
-              <strong>Broader coverage.</strong> RLRT leads from pass@1 to pass@256 on AIME24/26, ahead of entropy-bonus and diversity baselines.
-            </h2>
-          </div>
+
+  <!-- Beyond the base policy -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">RLRT Expands Reasoning Beyond the Base Policy</h2>
+      <img src="static/images/distribution_shift.png" alt="JS divergence CCDF and base probability of new top-1 tokens" style="display: block; width: 100%; margin-bottom: 1rem;">
+      <div class="columns">
+        <div class="column">
+          <p><strong style="color:#1e6b52">(a) More positions change.</strong> RLRT changes the next-token distribution at more positions than GRPO or RLSD.</p>
+        </div>
+        <div class="column">
+          <p><strong style="color:#1e6b52">(b) Rare tokens become top-1.</strong> Tokens with base probability &lt;0.001 become the most likely next token over 10× as often with RLRT as with GRPO or RLSD.</p>
         </div>
       </div>
+      <img src="static/images/pass_at_k.png" alt="pass@k comparison with exploration baselines on AIME24 and AIME26" style="display: block; width: 75%; margin: 1.5rem auto 1rem auto;">
+      <p class="has-text-centered">
+        Against exploration baselines on Qwen3-8B-Base, RLRT leads <strong>from pass@1 to pass@256</strong> on AIME24 and AIME26.<br>
+        <small>GRPO+EB: entropy bonus (token-level exploration). DIVER: sequence-level diversity.</small>
+      </p>
     </div>
   </section>
   <!-- BibTeX -->
