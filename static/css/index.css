@@ -760,6 +760,17 @@ a:focus {
 /* Wider page: Bulma caps .is-max-desktop at 960px; let content use more of large screens */
 @media screen and (min-width: 1216px) {
   .container.is-max-desktop {
-    max-width: 1152px;
+    max-width: 1200px;
   }
+}
+
+/* Avoid a single word left alone on the last line of a paragraph */
+.content p {
+  text-wrap: pretty;
+}
+
+/* Short centered captions: split into even lines instead of leaving one or two words behind */
+p.has-text-centered,
+.column > p {
+  text-wrap: balance;
 }
