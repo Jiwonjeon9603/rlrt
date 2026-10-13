@@ -802,3 +802,9 @@ p.has-text-centered,
   .fig-row > * { flex: none !important; }
   .fig-78, .fig-75, .fig-65, .fig-58 { width: 100%; }
 }
+
+/* Figures in gray (.hero.is-light) sections: blend their white
+   backgrounds into the section gray instead of showing white boxes. */
+.hero.is-light img {
+  mix-blend-mode: multiply;
+}
