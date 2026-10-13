@@ -815,3 +815,6 @@ p.has-text-centered,
   .columns.fig-pair { margin-left: -1.5rem; margin-right: -1.5rem; }
   .columns.fig-pair > .column { padding-left: 1.5rem; padding-right: 1.5rem; }
 }
+/* Same caption size as the Beyond the Base Policy captions; fits the
+   left caption on two lines. */
+.columns.fig-pair .column > p { font-size: 0.9rem; }
