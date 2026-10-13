@@ -757,10 +757,9 @@ a:focus {
   text-wrap: balance;
 }
 
-/* Wider than the text column on desktop so the headline fits on one line */
+/* Wider page: Bulma caps .is-max-desktop at 960px; let content use more of large screens */
 @media screen and (min-width: 1216px) {
-  .tldr-box {
-    margin-left: -5rem;
-    margin-right: -5rem;
+  .container.is-max-desktop {
+    max-width: 1152px;
   }
 }
