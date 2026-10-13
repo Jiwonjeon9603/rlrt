@@ -774,3 +774,24 @@ p.has-text-centered,
 .column > p {
   text-wrap: balance;
 }
+
+/* ---- Figure sizing ----
+   Each figure is scaled so its in-figure text roughly matches the
+   "Reversing the Teacher Signal" plots. Percentages are relative to the
+   content column, so ratios stay consistent at every desktop width. */
+.fig {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+.fig-wrap { margin-left: auto; margin-right: auto; }
+.fig-85 { width: 85%; }
+.fig-65 { width: 65%; }
+.fig-68 { width: 68%; }
+.fig-45 { width: 45%; }
+
+@media screen and (max-width: 768px) {
+  .fig-85, .fig-65, .fig-68, .fig-45 { width: 100%; }
+}
