@@ -340,7 +340,7 @@
       <img src="static/images/RLRT.png" alt="RLRT training pipeline" style="display: block; width: 100%; margin-bottom: 1.5rem;">
       <div class="content has-text-justified">
         <p>
-          RLRT changes only how GRPO assigns credit to tokens. The teacher sees a successful rollout; the student does not. Each token gets a reverse weight \(w_t = P_S(y_t) / P_T(y_t)\) on correct rollouts, where \(P_S\) and \(P_T\) are the student and teacher token probabilities. \(w_t &gt; 1\) means the student chose a token the teacher did not expect, so these self-driven tokens get more credit.
+          RLRT changes only how GRPO assigns credit to tokens. The teacher sees a successful rollout; the student does not. Each token gets a reverse weight \(w_t = P_S(y_t) / P_T(y_t)\) on correct rollouts, where \(P_S\) and \(P_T\) are the student and teacher token probabilities.
         </p>
         \[
           A_t^{\mathrm{RLRT}} = \begin{cases}
