@@ -790,6 +790,8 @@ p.has-text-centered,
 .fig-75 { width: 75%; }
 .fig-65 { width: 65%; }
 .fig-58 { width: 58%; }
+.fig-60 { width: 60%; margin-left: auto; margin-right: auto; }
+.fig-38 { width: 38%; margin-left: auto; margin-right: auto; }
 
 /* Side-by-side figures: images bottom-aligned, captions in a matching row */
 .fig-row { display: flex; gap: 1.5rem; align-items: flex-end; }
@@ -800,5 +802,5 @@ p.has-text-centered,
 @media screen and (max-width: 768px) {
   .fig-row { flex-direction: column; align-items: stretch; }
   .fig-row > * { flex: none !important; }
-  .fig-78, .fig-75, .fig-65, .fig-58 { width: 100%; }
+  .fig-78, .fig-75, .fig-65, .fig-58, .fig-60, .fig-38 { width: 100%; }
 }

@@ -368,26 +368,20 @@
   <section class="section">
     <div class="container is-max-desktop">
       <h2 class="title is-3 has-text-centered">RLRT Expands Reasoning Beyond the Base Policy</h2>
-      <!-- Distribution shift (a, b) and pass@k (c) share one row; flex ratios keep their in-figure text the same size -->
-      <div class="fig-row">
-        <div class="fig-cell" style="flex: 1.6 1 0;">
-          <img class="fig" src="static/images/distribution_shift.png" alt="JS divergence CCDF and base probability of new top-1 tokens">
-        </div>
-        <div class="fig-cell" style="flex: 1 1 0;">
-          <img class="fig" src="static/images/pass_at_k.png" alt="pass@k comparison with exploration baselines on AIME24 and AIME26">
+      <!-- (a, b) on one line, (c) centred below; widths keep the earlier side-by-side sizes -->
+      <div class="fig-60">
+        <img class="fig" src="static/images/distribution_shift.png" alt="JS divergence CCDF and base probability of new top-1 tokens">
+        <div class="fig-row fig-captions fig-subcaptions">
+          <p><strong style="color:#1e6b52">(a) More positions change.</strong> Higher curve = more changed positions. RLRT changes the next-token distribution at more positions than GRPO or RLSD.</p>
+          <p><strong style="color:#1e6b52">(b) Rare tokens become top-1.</strong> Tokens with base probability &lt;0.001 become the most likely next token over 10× as often with RLRT as with GRPO or RLSD.</p>
         </div>
       </div>
-      <div class="fig-row fig-captions">
-        <div style="flex: 1.6 1 0;">
-          <div class="fig-row fig-subcaptions">
-            <p><strong style="color:#1e6b52">(a) More positions change.</strong> Higher curve = more changed positions. RLRT changes the next-token distribution at more positions than GRPO or RLSD.</p>
-            <p><strong style="color:#1e6b52">(b) Rare tokens become top-1.</strong> Tokens with base probability &lt;0.001 become the most likely next token over 10× as often with RLRT as with GRPO or RLSD.</p>
-          </div>
-        </div>
-        <div style="flex: 1 1 0;">
+      <div class="fig-38" style="margin-top: 2rem;">
+        <img class="fig" src="static/images/pass_at_k.png" alt="pass@k comparison with exploration baselines on AIME24 and AIME26">
+      </div>
+      <div class="fig-captions has-text-centered">
           <p><strong style="color:#1e6b52">(c) Outperforms exploration baselines.</strong> On Qwen3-8B-Base, RLRT leads <strong>from pass@1 to pass@256</strong> on AIME24 and AIME26.<br>
           <small>GRPO+EB: entropy bonus (token-level exploration). DIVER: sequence-level diversity.</small></p>
-        </div>
       </div>
     </div>
   </section>
