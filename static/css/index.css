@@ -794,7 +794,7 @@ p.has-text-centered,
 /* Side-by-side figures: images bottom-aligned, captions in a matching row */
 .fig-row { display: flex; gap: 1.5rem; align-items: flex-end; }
 .fig-captions { align-items: flex-start; margin-top: 0.75rem; font-size: 0.9rem; }
-.fig-subcaptions { gap: 1rem; }
+.fig-subcaptions { gap: 1rem; align-items: flex-start; }
 .fig-subcaptions > p { flex: 1 1 0; }
 
 @media screen and (max-width: 768px) {
