@@ -48,10 +48,9 @@
   <meta name="citation_author" content="Li, Dongsheng">
   <meta name="citation_author" content="Yang, Yuqing">
   <meta name="citation_publication_date" content="2026">
-  <!-- TODO: 실제 학회/저널 (현재 NeurIPS 2026 submission으로 추정 — 확정되면 업데이트) 지원 나중 확인 -->
-  <meta name="citation_conference_title" content="arXiv preprint">
+  <meta name="citation_conference_title" content="Advances in Neural Information Processing Systems (NeurIPS 2026)">
   <!-- TODO: arXiv 또는 호스팅 PDF URL 지원 나중 확인 -->
-  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/YOUR_ARXIV_ID.pdf">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2605.10781">
   
   <!-- Additional SEO -->
   <meta name="theme-color" content="#2563eb">
@@ -246,8 +245,7 @@
             <div class="is-size-5 publication-authors">
               <span class="author-block"><sup>1</sup>Microsoft Research &nbsp;&nbsp; <sup>2</sup>KAIST</span>
               <br>
-              <!-- TODO: 학회 확정되면 업데이트 (현재 preprint로 표기) -->
-              <span class="author-block">Preprint, 2026</span>
+              <span class="author-block">NeurIPS 2026</span>
               <br>
               <span class="eql-cntrb">
                 <small><sup>*</sup>Equal contribution &nbsp;&nbsp; <sup>&diams;</sup>Work done during an internship at Microsoft Research &nbsp;&nbsp; <sup>&dagger;</sup>Corresponding author</small>
@@ -256,9 +254,8 @@
 
             <div class="column has-text-centered">
               <div class="publication-links">
-                <!-- TODO: arXiv ID 확정되면 업데이트 -->
                 <span class="link-block">
-                  <a href="https://arxiv.org/pdf/YOUR_ARXIV_ID.pdf" target="_blank"
+                  <a href="https://arxiv.org/pdf/2605.10781" target="_blank"
                   class="external-link button is-normal is-rounded is-dark">
                   <span class="icon"><i class="fas fa-file-pdf"></i></span>
                   <span>Paper</span>
@@ -283,9 +280,8 @@
                   </a>
                 </span>
 
-                <!-- TODO: arXiv ID 확정되면 업데이트 -->
                 <span class="link-block">
-                  <a href="https://arxiv.org/abs/YOUR_ARXIV_ID" target="_blank"
+                  <a href="https://arxiv.org/abs/2605.10781" target="_blank"
                   class="external-link button is-normal is-rounded is-dark">
                   <span class="icon"><i class="ai ai-arxiv"></i></span>
                   <span>arXiv</span>
@@ -300,88 +296,37 @@
   </section>
 
 
-  <!-- Teaser figure (논문에 video는 없으므로 Figure 1을 teaser로 활용 권장) -->
+  <!-- Teaser -->
   <section class="hero teaser">
     <div class="container is-max-desktop">
       <div class="hero-body">
-        <!-- TODO: Figure 1 (training curve + benchmark bar) 이미지를 static/images/teaser.png 등으로 저장 후 경로 업데이트.
-                   video 대신 img 태그 사용 권장 -->
-        <img src="static/images/og_preview.png" alt="RLRT teaser: reversing the teacher signal turns self-distillation into valuable exploration" style="width: 100%;">
-        <h2 class="subtitle has-text-centered">
-          <strong>Reversing the teacher signal turns self-distillation into valuable exploration.</strong><br>
-          On correct rollouts, RLRT amplifies tokens where the student diverged from the teacher and still succeeded, strengthening self-driven reasoning rather than forcing imitation toward the teacher. Across diverse models in the Qwen3 family, RLRT consistently outperforms self-distillation and exploration baselines.
-        </h2>
+        <div class="content has-text-centered" style="border: 3px solid #1e6b52; border-radius: 14px; padding: 1.25rem 1.5rem; margin-bottom: 2rem;">
+          <p class="is-size-4 has-text-weight-bold" style="color:#1e6b52; margin-bottom: 0.5rem;">RLRT is an LLM post-training method that teaches models how to think independently.</p>
+          <p class="is-size-5">Encouraging the model <strong>to think differently from the teacher's guidance</strong> while still getting the right answer leads to better reasoning.</p>
+        </div>
+        <img src="static/images/rlrt_concept.png" alt="The teacher tells the student to stop exploring; the student tries other methods and succeeds" style="width: 100%;">
       </div>
     </div>
   </section>
 
 
-  <!-- Abstract -->
+  <!-- Reversing the teacher signal -->
   <section class="section hero is-light">
     <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3">Abstract</h2>
-          <div class="content has-text-justified">
-            <p>
-              Self-distillation has emerged as a powerful framework for post-training LLMs, where a teacher conditioned on extra information guides a student without it, both from the same model. While this guidance is useful when the student has failed, on successful rollouts, the same mechanism instead overwrites the student's choices and suppresses its own reasoning. Therefore, we propose reading the original self-distillation signal <em>in reverse</em>: when the student succeeds along a path the teacher would not have predicted, these tokens reflect its <em>self-driven reasoning</em>. Building on this, we propose <strong>RLRT (RLVR with Reversed Teacher)</strong>, which augments GRPO by reinforcing these tokens on correct rollouts. We interpret this as a new form of exploration in RLVR: not uniform diversity, but <em>valuable exploration</em> grounded in the student's own success. Across base, instruction-tuned, and thinking-tuned Qwen3 checkpoints, RLRT substantially outperforms self-distillation and exploration-based baselines, establishing information asymmetry as a new, principled design axis for RLVR.
-            </p>
-          </div>
-        </div>
+      <h2 class="title is-3 has-text-centered">Reversing the Teacher Signal</h2>
+      <div class="content has-text-justified">
+        <p>
+          In self-distillation, a teacher (the same model, shown a correct solution) guides a student that sees only the problem. When the student has already solved the problem, pulling it toward the teacher just overwrites its own reasoning. We read the signal in reverse and look at <strong>self-driven tokens</strong>: tokens the student favors but the teacher disfavors.
+        </p>
       </div>
-    </div>
-  </section>
-
-
-  <!-- Introduction -->
-  <section class="section">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3">Introduction</h2>
-          <div class="content has-text-justified">
-            <p>
-              Reinforcement learning with verifiable rewards (RLVR) has become the dominant paradigm for post-training LLMs on reasoning tasks, yet it suffers from a credit-assignment bottleneck: the only learning signal is a sparse scalar reward at the end of each trajectory. Self-distillation has recently emerged as a powerful response. Its core mechanism is an <em>information asymmetry</em> between two views of the same model: a teacher view conditioned on additional information (rich textual feedback, or a successful peer rollout) and a student view without it. By distilling the teacher into the student, this asymmetry converts the sparse scalar reward into dense token-level supervision.
-            </p>
-            <p>
-              However, the value of distillation depends on whether the rollout was already correct. On failed trajectories, the teacher points the student toward solutions it could not previously reach. On already-correct trajectories, the same mechanism inverts its role: distilling toward the teacher overwrites the student's choices with the teacher's, forcing it to imitate a path it had already solved its own way and undermining the independent reasoning that produced the success.
-            </p>
-            <p>
-              This motivates us to <em>reverse the direction</em> of self-distillation on correct rollouts. The tokens where the student's choice differs most sharply from the teacher's prediction are not arbitrary disagreements: they are the very points where the student exercised its own reasoning, choosing against the teacher and still arriving at the correct answer. Rather than suppressing these <em>self-driven</em> tokens by aligning the student to the teacher, we propose to amplify them. Self-distillation thus becomes a tool for strengthening the student's reasoning ability rather than reducing it to imitation.
-            </p>
-            <p>
-              Building on this, we propose <strong>RLRT (RLVR with Reversed Teacher)</strong>, which augments GRPO by amplifying self-driven tokens on correct rollouts. We further interpret this as a new form of exploration in RLVR: not uniform diversity, but <em>valuable exploration</em> grounded in the student's own success. Across diverse models in the Qwen3 family, RLRT outperforms self-distillation baselines by an average of <strong>8.9%</strong> on six math reasoning benchmarks, including the challenging AIME and HMMT.
-            </p>
-            <img src="static/images/score_summarized.png" alt="Training reward and benchmark scores across Qwen3 models" style="display: block; width: 100%; margin: 1.5rem 0 0 0;">
-          </div>
+      <div class="columns is-vcentered">
+        <div class="column">
+          <img src="static/images/self_driven_curve.jpg" alt="Training score when upweighting teacher-predicted vs. self-driven tokens" style="width: 100%;">
+          <p class="has-text-centered">Upweighting <strong style="color:#1e8a5f">self-driven tokens</strong> during GRPO significantly improves training efficiency.</p>
         </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- Motivation -->
-  <section class="section hero is-light">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3">Motivation</h2>
-          <div class="content has-text-justified">
-            <p>
-              The teacher–student setup gives us a natural lens for identifying <em>self-driven reasoning</em>. On correct rollouts, the tokens at which the student departs from the teacher are not merely mistakes to be suppressed, but signs of self-driven reasoning — tokens at which the student deviates from the teacher's predictive distribution in ways influential to reaching the correct answer.
-            </p>
-            <p>
-              To make this precise, we define two quantities. The <em>token-level information asymmetry</em> at a sampled token \(y_t\) is \(\hat{D}_t(y_t) = \log \frac{P_S(y_t)}{P_T(y_t)}\), and the <em>position-level asymmetry</em> is its student-expectation, \(\bar{D}_t = \mathrm{KL}(P_S \,\|\, P_T)\). These play distinct roles: \(\bar{D}_t\) flags which positions matter, while the sign of \(\hat{D}_t\) marks which direction the policy should update.
-            </p>
-            <p>
-              <strong>\(\bar{D}_t\) identifies critical positions.</strong> We justify this through a Bayesian view of the teacher: modeling the teacher as the student conditioned on success (\(R=1\)), Bayes' rule gives \(\hat{D}_t(v) = \log \bar{f}_S - \log f(v)\), where \(f(v)\) is the probability of a correct outcome after choosing token \(v\). Defining the influence of position \(t\) as \(\mathrm{Inf}_S(t) = \mathbb{E}_v\,|f(v) - \bar{f}_S|\), we derive a Pinsker-type bound: \(\mathrm{Inf}_S(t)^2 \le 2\,\bar{D}_t\). By contrapositive, \(\bar{D}_t \approx 0\) implies an inert position, so any position where the choice of token meaningfully affects correctness must carry high \(\bar{D}_t\).
-            </p>
-            <img src="static/images/critical_direction.png" alt="Critical positions on a reasoning trajectory" style="display: block; width: 100%; margin: 1.5rem 0;">
-            <p>
-              <strong>The sign of \(\hat{D}_t\) identifies the direction.</strong> At critical positions, candidates the teacher would have predicted (\(\hat{D}_t < 0\), e.g., "use", "conclude") define the <em>exploit direction</em> — following the teacher's path. Candidates the student chose against the teacher (\(\hat{D}_t > 0\), e.g., "try", "consider") define the <em>explore direction</em> — a self-driven path consistent with success. RLRT amplifies the latter.
-            </p>
-            <img src="static/images/explore_exploit_tokens.png" alt="Volcano plot of explore vs exploit reasoning markers" style="display: block; width: 100%; margin: 1.5rem 0 0 0;">
-          </div>
+        <div class="column">
+          <img src="static/images/explore_exploit_tokens.png" alt="Explore-leaning vs. exploit-leaning reasoning markers" style="width: 100%;">
+          <p class="has-text-centered"><strong style="color:#1e8a5f">Self-driven tokens open new paths</strong> (<em>wait, another, consider</em>); <strong style="color:#c2185b">teacher-predicted tokens close them</strong> (<em>conclude, correct, final</em>).</p>
         </div>
       </div>
     </div>
@@ -391,126 +336,62 @@
   <!-- Method -->
   <section class="section">
     <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3">Method</h2>
-          <div class="content has-text-justified">
-            <p>
-              We present <strong>RLRT (RLVR with Reversed Teacher)</strong>, an instance of the framework above that uses an informed teacher and amplifies, on correct rollouts, tokens with \(\hat{D}_t > 0\). RLRT modifies only the token-level credit assignment of standard GRPO, leaving the rollout, reward, and trust-region mechanisms unchanged.
-            </p>
-            <img src="static/images/RLRT.png" alt="RLRT training pipeline overview" style="display: block; width: 100%; margin: 1.5rem 0;">
-            <p>
-              <strong>Reverse weight.</strong> For a prompt \(x\), the student policy \(\pi_\theta\) samples \(K\) rollouts, each receiving a verifiable reward \(r \in \{0, 1\}\) and a group-standardized advantage \(A\). RLRT defines a per-token reweighting based on \(\hat{D}_t\):
-            </p>
-            \[
-              w_t^{\mathrm{RLRT}} = \exp\!\bigl(\mathrm{sign}(A)\cdot\hat{D}_t\bigr) = \left(\frac{P_S(y_t)}{P_T(y_t)}\right)^{\mathrm{sign}(A)}.
-            \]
-            <p>
-              On positive-advantage tokens, \(w_t^{\mathrm{RLRT}} > 1\) exactly when \(\hat{D}_t > 0\) — i.e., for tokens the student chose against the teacher's prediction — and the reweighting amplifies these <em>self-driven</em> choices rather than aligning the student to the teacher. The flipped teacher/student ratio relative to RLSD reflects a difference in intent: RLSD treats teacher–student disagreement as a correction to be applied, whereas RLRT treats it as a signal of <em>valuable exploration</em> and amplifies it.
-            </p>
-            <p>
-              <strong>Reward-gated update.</strong> The reverse weight is applied only to correct rollouts:
-            </p>
-            \[
-              A_t^{\mathrm{RLRT}} = \begin{cases}
-                A \cdot \bigl[(1-\lambda) + \lambda\cdot\mathrm{clip}(w_t^{\mathrm{RLRT}},\, 1-\varepsilon_w,\, 1+\varepsilon_w)\bigr] & \text{if } r = 1, \\
-                A & \text{if } r = 0,
-              \end{cases}
-            \]
-            <p>
-              where \(\lambda \in [0, 1]\) controls the strength of the reversed signal (\(\lambda = 0\) recovers vanilla GRPO, \(\lambda = 1\) yields full reverse weighting), and the clip \(\varepsilon_w\) bounds the per-token advantage perturbation by \(\lambda\cdot\varepsilon_w\).
-            </p>
-          </div>
+      <h2 class="title is-3 has-text-centered">RLRT: RLVR with Reversed Teacher</h2>
+      <img src="static/images/RLRT.png" alt="RLRT training pipeline" style="display: block; width: 100%; margin-bottom: 1.5rem;">
+      <div class="content has-text-justified">
+        <p>
+          RLRT changes only how GRPO assigns credit to tokens. The teacher sees a successful rollout; the student does not. Each token gets a reverse weight \(w_t = P_S(y_t) / P_T(y_t)\) on correct rollouts, where \(P_S\) and \(P_T\) are the student and teacher token probabilities.
+        </p>
+        \[
+          A_t^{\mathrm{RLRT}} = \begin{cases}
+            A \cdot \bigl[(1-\lambda) + \lambda\cdot\mathrm{clip}(w_t,\, 1-\varepsilon_w,\, 1+\varepsilon_w)\bigr] & \text{if } r = 1, \\
+            A & \text{if } r = 0
+          \end{cases}
+        \]
+        <p class="has-text-centered"><small>\(A\): GRPO advantage; \(r\): correctness; \(\lambda\) sets the weighting strength (\(\lambda = 0\) is GRPO); \(\varepsilon_w\) bounds the clipped weight.</small></p>
+        <p class="has-text-centered" style="color:#1e6b52; font-weight: 600;">
+          Correct rollouts: amplify self-driven tokens (\(P_S &gt; P_T\)). Incorrect rollouts: keep GRPO.
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Results -->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Training and Benchmark Performance</h2>
+      <div class="content has-text-justified">
+        <p>
+          We train on DAPO-Math-17k with four Qwen3 backbones and evaluate on six math benchmarks (AIME24/25/26, HMMT26, AMC23, MATH500). RLRT trains faster and outperforms GRPO and self-distillation baselines on all four backbones, by <strong>up to 18%</strong>.
+        </p>
+      </div>
+      <img src="static/images/training_curves.jpg" alt="Training score curves on four Qwen3 backbones" style="display: block; width: 100%; margin-bottom: 1.5rem;">
+      <img src="static/images/benchmark_bars.jpg" alt="Mean avg@16 across six math benchmarks" style="display: block; width: 100%;">
+    </div>
+  </section>
+
+
+  <!-- Beyond the base policy -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">RLRT Expands Reasoning Beyond the Base Policy</h2>
+      <img src="static/images/distribution_shift.png" alt="JS divergence CCDF and base probability of new top-1 tokens" style="display: block; width: 100%; margin-bottom: 1rem;">
+      <div class="columns">
+        <div class="column">
+          <p><strong style="color:#1e6b52">(a) More positions change.</strong> RLRT changes the next-token distribution at more positions than GRPO or RLSD.</p>
+        </div>
+        <div class="column">
+          <p><strong style="color:#1e6b52">(b) Rare tokens become top-1.</strong> Tokens with base probability &lt;0.001 become the most likely next token over 10× as often with RLRT as with GRPO or RLSD.</p>
         </div>
       </div>
+      <img src="static/images/pass_at_k.png" alt="pass@k comparison with exploration baselines on AIME24 and AIME26" style="display: block; width: 75%; margin: 1.5rem auto 1rem auto;">
+      <p class="has-text-centered">
+        Against exploration baselines on Qwen3-8B-Base, RLRT leads <strong>from pass@1 to pass@256</strong> on AIME24 and AIME26.<br>
+        <small>GRPO+EB: entropy bonus (token-level exploration). DIVER: sequence-level diversity.</small>
+      </p>
     </div>
   </section>
-
-
-  <!-- Image carousel (논문의 주요 figure 5개를 권장) -->
-  <section class="hero is-small">
-    <div class="hero-body">
-      <div class="container">
-        <div id="results-carousel" class="carousel results-carousel">
-          <!-- TODO: 각 이미지를 논문 figure로 교체. 권장 매핑:
-               carousel1.jpg → Figure 2 (Critical positions & explore/exploit directions)
-               carousel2.jpg → Figure 3 (Reasoning markers volcano plot)
-               carousel3.jpg → Figure 4 (RLRT overview)
-               carousel4.jpg → Figure 6 (Reflection injection flip rates)
-               carousel5.jpg → Figure 8 (pass@k comparison) -->
-          <div class="item">
-            <img src="static/images/critical_direction.png" alt="Critical positions and explore/exploit directions on a reasoning trajectory" loading="lazy"/>
-            <h2 class="subtitle has-text-centered">
-              <strong>Critical positions and explore/exploit directions.</strong> Token shading shows position-level asymmetry; at each critical position, candidates split into explore (green, student-favored) and exploit (pink, teacher-favored).
-            </h2>
-          </div>
-          <div class="item">
-            <img src="static/images/explore_exploit_tokens.png" alt="Reasoning markers in the explore/exploit population" loading="lazy"/>
-            <h2 class="subtitle has-text-centered">
-              <strong>Reasoning markers separate cleanly.</strong> Explore-leaning tokens open new reasoning paths (<em>wait, another, consider</em>); exploit-leaning ones close them with verdicts (<em>conclude, correct, final</em>).
-            </h2>
-          </div>
-          <div class="item">
-            <img src="static/images/RLRT.png" alt="RLRT training pipeline overview" loading="lazy"/>
-            <h2 class="subtitle has-text-centered">
-              <strong>RLRT pipeline.</strong> The reversed teacher provides token-level signals that, on correct rollouts, up-weight tokens with high asymmetry — amplifying self-driven choices.
-            </h2>
-          </div>
-          <div class="item">
-            <img src="static/images/flipR.png" alt="Reflection injection causal intervention" loading="lazy"/>
-            <h2 class="subtitle has-text-centered">
-              <strong>Causal evidence.</strong> Injecting "Wait, let me reconsider" at high-asymmetry positions flips wrong → right twice as often as at random positions — and RLRT amplifies this effect from 18% to over 40%.
-            </h2>
-          </div>
-          <div class="item">
-            <img src="static/images/pass_at_k.png" alt="pass@k comparison with exploration methods" loading="lazy"/>
-            <h2 class="subtitle has-text-centered">
-              <strong>Genuinely broader coverage.</strong> RLRT dominates from pass@1 to pass@256 on AIME24/26, outperforming both entropy-bonus and sequence-level diversity baselines.
-            </h2>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- 논문에 video가 없으므로 YouTube 섹션은 통째로 삭제하는 것을 권장.
-       발표 영상 만들면 그 때 다시 추가하시면 됩니다.
-       아래는 삭제하지 않으려면 placeholder로 둘 수 있는 형태입니다. -->
-  <!--
-  <section class="hero is-small is-light">
-    <div class="hero-body">
-      <div class="container">
-        <h2 class="title is-3">Video Presentation</h2>
-        <div class="columns is-centered has-text-centered">
-          <div class="column is-four-fifths">
-            <div class="publication-video">
-              <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  -->
-
-
-  <!-- TODO: 두 번째 video carousel은 논문에 영상이 없으므로 통째로 삭제 권장 -->
-
-
-  <!-- Poster — TODO: 포스터 PDF 있으면 경로 업데이트, 없으면 섹션 통째로 삭제 -->
-  <!--
-  <section class="hero is-small is-light">
-    <div class="hero-body">
-      <div class="container">
-        <h2 class="title">Poster</h2>
-        <iframe src="static/pdfs/rlrt_poster.pdf" width="100%" height="550"></iframe>
-      </div>
-    </div>
-  </section>
-  -->
-
-
   <!-- BibTeX -->
   <section class="section" id="BibTeX">
     <div class="container is-max-desktop content">
@@ -521,10 +402,10 @@
           <span class="copy-text">Copy</span>
         </button>
       </div>
-      <pre id="bibtex-code"><code>@article{kim2026rlrt,
+      <pre id="bibtex-code"><code>@inproceedings{kim2026rlrt,
   title     = {Rebellious Student: Reversing Teacher Signals for Reasoning Exploration with Self-Distilled RLVR},
   author    = {Kim, Jeonghye and Jeon, Jiwon and Li, Dongsheng and Yang, Yuqing},
-  journal   = {arXiv preprint arXiv:YOUR_ARXIV_ID},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
   year      = {2026}
 }</code></pre>
     </div>
