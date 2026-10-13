@@ -379,7 +379,7 @@
       <img src="static/images/distribution_shift.png" alt="JS divergence CCDF and base probability of new top-1 tokens" style="display: block; width: 100%; margin-bottom: 1rem;">
       <div class="columns">
         <div class="column">
-          <p><strong style="color:#1e6b52">(a) More positions change.</strong> At each token position, we measure how far the trained model's next-token distribution has moved from the base model's (JS divergence). The curve shows the fraction of positions that moved more than \(x\), so a higher curve means more changed positions. GRPO and RLSD stay close to the base model at most positions, while RLRT changes far more of them.</p>
+          <p><strong style="color:#1e6b52">(a) More positions change.</strong> Higher curve = more changed positions. RLRT changes the next-token distribution at more positions than GRPO or RLSD.</p>
         </div>
         <div class="column">
           <p><strong style="color:#1e6b52">(b) Rare tokens become top-1.</strong> Tokens with base probability &lt;0.001 become the most likely next token over 10× as often with RLRT as with GRPO or RLSD.</p>
