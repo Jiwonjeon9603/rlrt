@@ -808,3 +808,10 @@ p.has-text-centered,
 .hero.is-light img {
   mix-blend-mode: multiply;
 }
+
+/* Wider gap between the two "Reversing the Teacher Signal" figures
+   (Bulma default is 1.5rem); outer edges stay aligned with the text. */
+@media screen and (min-width: 769px) {
+  .columns.fig-pair { margin-left: -1.5rem; margin-right: -1.5rem; }
+  .columns.fig-pair > .column { padding-left: 1.5rem; padding-right: 1.5rem; }
+}

@@ -302,7 +302,7 @@
           Self-distillation trains a model (the <em>student</em>) to imitate a copy of itself that has already seen the answer (the <em>teacher</em>). A teacher that knows the answer has no reason to hesitate, so the student learns to drop words like <em>wait</em> and <em>maybe</em> and stops exploring. We flip the signal: on correct answers, we reward <strong>self-driven tokens</strong>, the choices the student made against the teacher's prediction that still led to the right answer.
         </p>
       </div>
-      <div class="columns">
+      <div class="columns fig-pair">
         <div class="column" style="flex: 2.19 1 0;">
           <img src="static/images/self_driven_curve.png" alt="Training score when upweighting teacher-predicted vs. self-driven tokens" style="width: 100%;">
           <p class="has-text-centered">Upweighting <strong style="color:#1e8a5f">self-driven tokens</strong> during GRPO significantly improves training efficiency, while upweighting <strong style="color:#c2185b">teacher-predicted tokens</strong> hurts it.</p>
