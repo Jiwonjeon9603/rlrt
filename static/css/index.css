@@ -786,13 +786,19 @@ p.has-text-centered,
   margin-left: auto;
   margin-right: auto;
 }
-.fig-wrap { margin-left: auto; margin-right: auto; }
 .fig-78 { width: 78%; }
 .fig-75 { width: 75%; }
 .fig-65 { width: 65%; }
 .fig-58 { width: 58%; }
-.fig-45 { width: 45%; }
+
+/* Side-by-side figures: images bottom-aligned, captions in a matching row */
+.fig-row { display: flex; gap: 1.5rem; align-items: flex-end; }
+.fig-captions { align-items: flex-start; margin-top: 0.75rem; font-size: 0.9rem; }
+.fig-subcaptions { gap: 1rem; }
+.fig-subcaptions > p { flex: 1 1 0; }
 
 @media screen and (max-width: 768px) {
-  .fig-78, .fig-75, .fig-65, .fig-58, .fig-45 { width: 100%; }
+  .fig-row { flex-direction: column; align-items: stretch; }
+  .fig-row > * { flex: none !important; }
+  .fig-78, .fig-75, .fig-65, .fig-58 { width: 100%; }
 }
