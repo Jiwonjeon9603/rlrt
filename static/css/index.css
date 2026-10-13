@@ -787,11 +787,11 @@ p.has-text-centered,
   margin-right: auto;
 }
 .fig-wrap { margin-left: auto; margin-right: auto; }
-.fig-85 { width: 85%; }
+.fig-78 { width: 78%; }
 .fig-65 { width: 65%; }
-.fig-68 { width: 68%; }
+.fig-58 { width: 58%; }
 .fig-45 { width: 45%; }
 
 @media screen and (max-width: 768px) {
-  .fig-85, .fig-65, .fig-68, .fig-45 { width: 100%; }
+  .fig-78, .fig-65, .fig-58, .fig-45 { width: 100%; }
 }

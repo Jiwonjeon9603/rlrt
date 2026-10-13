@@ -329,7 +329,7 @@
   <section class="section">
     <div class="container is-max-desktop">
       <h2 class="title is-3 has-text-centered">RLRT: RLVR with Reversed Teacher</h2>
-      <img class="fig fig-85" src="static/images/RLRT.png" alt="RLRT training pipeline" style="margin-bottom: 1.5rem;">
+      <img class="fig fig-78" src="static/images/RLRT.png" alt="RLRT training pipeline" style="margin-bottom: 1.5rem;">
       <div class="content has-text-justified">
         <p>
           RLRT changes only how GRPO assigns credit to tokens. The teacher sees a successful rollout; the student does not. Each token gets a reverse weight \(w_t = P_S(y_t) / P_T(y_t)\) on correct rollouts, where \(P_S\) and \(P_T\) are the student and teacher token probabilities.
@@ -359,7 +359,7 @@
         </p>
       </div>
       <img class="fig" src="static/images/training_curves.png" alt="Training score curves on four Qwen3 backbones" style="margin-bottom: 1.5rem;">
-      <img class="fig fig-68" src="static/images/benchmark_bars.png" alt="Mean avg@16 across six math benchmarks">
+      <img class="fig fig-58" src="static/images/benchmark_bars.png" alt="Mean avg@16 across six math benchmarks">
     </div>
   </section>
 
@@ -368,7 +368,7 @@
   <section class="section">
     <div class="container is-max-desktop">
       <h2 class="title is-3 has-text-centered">RLRT Expands Reasoning Beyond the Base Policy</h2>
-      <div class="fig-wrap fig-68">
+      <div class="fig-wrap fig-58">
       <img class="fig" src="static/images/distribution_shift.png" alt="JS divergence CCDF and base probability of new top-1 tokens" style="margin-bottom: 1rem;">
       <div class="columns">
         <div class="column">
