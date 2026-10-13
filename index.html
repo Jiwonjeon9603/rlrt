@@ -300,7 +300,7 @@
   <section class="hero teaser">
     <div class="container is-max-desktop">
       <div class="hero-body">
-        <div class="content has-text-centered" style="border: 3px solid #1e6b52; border-radius: 14px; padding: 1.25rem 1.5rem; margin-bottom: 2rem;">
+        <div class="content has-text-centered tldr-box" style="border: 3px solid #1e6b52; border-radius: 14px; padding: 1.25rem 1.5rem; margin-bottom: 2rem;">
           <p class="is-size-4 has-text-weight-bold" style="color:#1e6b52; margin-bottom: 0.5rem;">RLRT is an LLM post-training method that teaches models how to think independently.</p>
           <p class="is-size-5">Encouraging the model <strong>to think differently from the teacher's guidance</strong> while still getting the right answer leads to better reasoning.</p>
         </div>
@@ -316,17 +316,17 @@
       <h2 class="title is-3 has-text-centered">Reversing the Teacher Signal</h2>
       <div class="content has-text-justified">
         <p>
-          In self-distillation, a teacher (the same model, shown a correct solution) guides a student that sees only the problem. When the student has already solved the problem, pulling it toward the teacher just overwrites its own reasoning. We read the signal in reverse and look at <strong>self-driven tokens</strong>: tokens the student favors but the teacher disfavors.
+          Self-distillation trains a model (the <em>student</em>) to imitate a copy of itself that has already seen the answer (the <em>teacher</em>). A teacher that knows the answer has no reason to hesitate, so the student learns to drop words like <em>wait</em> and <em>maybe</em> and stops exploring. We flip the signal: on correct answers, we reward <strong>self-driven tokens</strong>, the choices the student made against the teacher's prediction that still led to the right answer.
         </p>
       </div>
       <div class="columns is-vcentered">
         <div class="column">
           <img src="static/images/self_driven_curve.jpg" alt="Training score when upweighting teacher-predicted vs. self-driven tokens" style="width: 100%;">
-          <p class="has-text-centered">Upweighting <strong style="color:#1e8a5f">self-driven tokens</strong> during GRPO significantly improves training efficiency.</p>
+          <p class="has-text-centered">Upweighting <strong style="color:#1e8a5f">self-driven tokens</strong> during GRPO significantly improves training efficiency, while upweighting <strong style="color:#c2185b">teacher-predicted tokens</strong> hurts it.</p>
         </div>
         <div class="column">
           <img src="static/images/explore_exploit_tokens.png" alt="Explore-leaning vs. exploit-leaning reasoning markers" style="width: 100%;">
-          <p class="has-text-centered"><strong style="color:#1e8a5f">Self-driven tokens open new paths</strong> (<em>wait, another, consider</em>); <strong style="color:#c2185b">teacher-predicted tokens close them</strong> (<em>conclude, correct, final</em>).</p>
+          <p class="has-text-centered"><strong style="color:#1e8a5f">Self-driven tokens open new paths</strong> (<em>wait, maybe, another</em>); <strong style="color:#c2185b">teacher-predicted tokens close them</strong> and follow the teacher's route (<em>conclude, final, yield</em>).</p>
         </div>
       </div>
     </div>
@@ -379,7 +379,7 @@
       <img src="static/images/distribution_shift.png" alt="JS divergence CCDF and base probability of new top-1 tokens" style="display: block; width: 100%; margin-bottom: 1rem;">
       <div class="columns">
         <div class="column">
-          <p><strong style="color:#1e6b52">(a) More positions change.</strong> RLRT changes the next-token distribution at more positions than GRPO or RLSD.</p>
+          <p><strong style="color:#1e6b52">(a) More positions change.</strong> Higher curve = more changed positions. RLRT changes the next-token distribution at more positions than GRPO or RLSD.</p>
         </div>
         <div class="column">
           <p><strong style="color:#1e6b52">(b) Rare tokens become top-1.</strong> Tokens with base probability &lt;0.001 become the most likely next token over 10× as often with RLRT as with GRPO or RLSD.</p>
@@ -387,7 +387,7 @@
       </div>
       <img src="static/images/pass_at_k.png" alt="pass@k comparison with exploration baselines on AIME24 and AIME26" style="display: block; width: 75%; margin: 1.5rem auto 1rem auto;">
       <p class="has-text-centered">
-        Against exploration baselines on Qwen3-8B-Base, RLRT leads <strong>from pass@1 to pass@256</strong> on AIME24 and AIME26.<br>
+        <strong style="color:#1e6b52">(c) Outperforms exploration baselines.</strong> On Qwen3-8B-Base, RLRT leads <strong>from pass@1 to pass@256</strong> on AIME24 and AIME26.<br>
         <small>GRPO+EB: entropy bonus (token-level exploration). DIVER: sequence-level diversity.</small>
       </p>
     </div>

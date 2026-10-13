@@ -751,3 +751,15 @@ a:focus {
 
 
 
+
+/* Summary banner: balance lines so no single word is left alone when it wraps */
+.tldr-box p {
+  text-wrap: balance;
+}
+
+/* Wider page: Bulma caps .is-max-desktop at 960px; let content use more of large screens */
+@media screen and (min-width: 1216px) {
+  .container.is-max-desktop {
+    max-width: 1152px;
+  }
+}
