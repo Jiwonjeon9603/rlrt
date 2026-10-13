@@ -751,3 +751,16 @@ a:focus {
 
 
 
+
+/* Summary banner: balance lines so no single word is left alone when it wraps */
+.tldr-box p {
+  text-wrap: balance;
+}
+
+/* Wider than the text column on desktop so the headline fits on one line */
+@media screen and (min-width: 1216px) {
+  .tldr-box {
+    margin-left: -5rem;
+    margin-right: -5rem;
+  }
+}
